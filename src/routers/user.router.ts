@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { bodyMiddleware, verifyUserMiddleware } from "../middlewares";
+import { bodyMiddleware, tokenMiddleware, verifyUserMiddleware } from "../middlewares";
 import { userSchema } from "../schemas";
 import { userController } from "../controllers";
 
@@ -10,6 +10,19 @@ userRouter.post("",
     bodyMiddleware.validate(userSchema),
     verifyUserMiddleware.emailExists,
     userController.create
+);
+
+userRouter.get("",
+    tokenMiddleware.validate,
+    tokenMiddleware.isAdmin,
+    userController.read
+);
+
+userRouter.get("/:id/courses",
+    tokenMiddleware.validate,
+    tokenMiddleware.isAdmin,
+    verifyUserMiddleware.idExists,
+    userController.readCourses
 );
 
 export default userRouter;

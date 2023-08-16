@@ -7,4 +7,12 @@ const userSchema = z.object({
     admin: z.boolean().optional()
 });
 
-export default userSchema;
+const userReturnSchema = userSchema.pick({
+    name: true, 
+    email: true
+}).extend({
+    id: z.number(), 
+    admin: z.boolean()
+});
+
+export { userSchema, userReturnSchema };

@@ -1,5 +1,6 @@
 import courseSchema from "./course.schema";
-import userSchema from "./user.schema";
 import loginSchema from "./login.schema";
+import { userReturnSchema, userSchema } from "./user.schema";
 
-export { courseSchema, userSchema, loginSchema };
+
+export { courseSchema, userSchema, userReturnSchema, loginSchema };

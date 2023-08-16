@@ -1,4 +1,5 @@
-import userSchema from './user.schema';
+import { userSchema } from "./user.schema";
+
 
 const loginSchema = userSchema.pick({ email: true, password: true });
 
