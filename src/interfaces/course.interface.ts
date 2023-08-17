@@ -6,4 +6,20 @@ type CourseCreate = z.infer<typeof courseSchema>;
 type Course = CourseCreate & { id: number };
 type CourseResult = QueryResult<Course>;
 
-export  { CourseCreate, Course, CourseResult };
+type CourseWithUser = {
+    userId: number,
+    userName: string,
+    courseId: number,
+    courseName: string,
+    courseDescription: string,
+    userActiveInCourse: boolean
+};
+type CourseWithUserResult = QueryResult<CourseWithUser>;
+
+export  { 
+    CourseCreate, 
+    Course, 
+    CourseResult, 
+    CourseWithUser, 
+    CourseWithUserResult 
+};

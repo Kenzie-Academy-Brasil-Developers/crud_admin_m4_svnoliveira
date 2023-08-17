@@ -10,7 +10,10 @@ const idExists = async (
     res: Response,
     next: NextFunction
 ): Promise<Response | void> => {
-    const id: number = Number(req.body.developerId) || Number(req.params.id);
+    const id: number = Number(req.params.courseId) || Number(req.params.id);
+    const errorMessage = req.params.courseId ? 
+    "User/course not found" : "Course not found.";
+    
     const queryString: string = `
     SELECT *
     FROM courses
@@ -26,8 +29,36 @@ const idExists = async (
         res.locals.course = course;
         return next();
     } else {
-        throw new AppError("Course not found.", 404);
+        throw new AppError(errorMessage, 404);
     };
 };
 
-export default { idExists };
+const isEnrolled = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<Response | void> => {
+    const userId: number = Number(req.params.userId);
+    const courseId: number = Number(req.params.userId);
+    
+    const queryString: string = `
+    SELECT *
+    FROM "userCourses"
+    WHERE "userId" = $1
+    AND "courseId" = $2;
+    `;
+
+    const queryConfig: QueryConfig = {
+        text: queryString,
+        values: [ userId, courseId ],
+    };
+    const queryResult = await client.query(queryConfig);
+    const course: Course = queryResult.rows[0];
+    if (course) {
+        res.locals.enrollmentId = course.id;
+    };
+
+    return next();
+};
+
+export default { idExists, isEnrolled };

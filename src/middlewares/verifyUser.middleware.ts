@@ -36,7 +36,10 @@ const idExists = async (
     res: Response,
     next: NextFunction
 ): Promise<Response | void> => {
-    const id: number = Number(req.body.developerId) || Number(req.params.id);
+    const id: number = Number(req.params.userId) || Number(req.params.id);
+    const errorMessage = req.params.userId ? 
+    "User/course not found" : "User not found.";
+    
     const queryString: string = `
     SELECT *
     FROM users
@@ -52,7 +55,7 @@ const idExists = async (
         res.locals.user = user;
         return next();
     } else {
-        throw new AppError("User not found.", 404);
+        throw new AppError(errorMessage, 404);
     };
 };
 

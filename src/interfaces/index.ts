@@ -10,7 +10,13 @@ import {
     UserWithCourseResult 
 } from "./user.interface";
 
-import { Course, CourseCreate, CourseResult } from "./course.interface";
+import { 
+    Course, 
+    CourseCreate, 
+    CourseResult,
+    CourseWithUser, 
+    CourseWithUserResult
+} from "./course.interface";
 
 export { 
     UserCreate,
@@ -23,6 +29,8 @@ export {
     CourseCreate,
     Course,
     CourseResult,
+    CourseWithUser, 
+    CourseWithUserResult,
     Login,
     Token
 };
