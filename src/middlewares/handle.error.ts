@@ -16,7 +16,7 @@ const error = (
 
     if (err instanceof ZodError) {
         const zodError = err.flatten().fieldErrors;
-        return res.status(400).json({message: zodError });
+        return res.status(400).json(zodError);
     };
     
     console.log(err);

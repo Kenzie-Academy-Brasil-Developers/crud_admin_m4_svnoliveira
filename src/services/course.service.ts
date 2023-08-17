@@ -50,9 +50,6 @@ const readUsers = async (courseId:number): Promise<CourseWithUser[]> => {
     };
     const queryResult: CourseWithUserResult = await client.query(queryConfig);
     const userList = queryResult.rows;
-    // if (userList.length < 1){
-    //     throw new AppError("No user found", 404);
-    // };
     return userList;
 };
 
